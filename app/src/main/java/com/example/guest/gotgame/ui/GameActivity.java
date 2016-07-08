@@ -1,7 +1,9 @@
-package com.example.guest.gotgame;
+package com.example.guest.gotgame.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.guest.gotgame.R;
 
 public class GameActivity extends AppCompatActivity {
 
