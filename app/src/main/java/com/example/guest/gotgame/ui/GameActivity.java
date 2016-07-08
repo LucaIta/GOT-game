@@ -6,8 +6,11 @@ import android.util.Log;
 
 import com.example.guest.gotgame.GotQuotesService;
 import com.example.guest.gotgame.R;
+import com.example.guest.gotgame.model.Quote;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -15,6 +18,7 @@ import okhttp3.Response;
 
 public class GameActivity extends AppCompatActivity {
     public static final String TAG = GameActivity.class.getSimpleName();
+    public ArrayList<Quote> mQuotes = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +39,11 @@ public class GameActivity extends AppCompatActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 try {
                     String jsonData = response.body().string();
-                    Log.v(TAG, jsonData);
+                    if (response.isSuccessful()) {
+                        Log.v(TAG, jsonData);
+                        mQuotes = gotQuotesService.processResults(jsonData);
+                        Log.v(TAG, mQuotes.get(0).getQuote());
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
