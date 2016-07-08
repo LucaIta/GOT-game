@@ -16,12 +16,15 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class GotQuotesService {
+public class GotQuotesService { // some of this code might be moved outside the service since I'm calling it several times
+
+    private static String url = "https://got-quotes.herokuapp.com/quotes";
+    private static OkHttpClient client = new OkHttpClient.Builder().build();
+    private static Request request = new Request.Builder().url(url).build();
+
 
     public static void retrieveQuotes(Callback callback) { // this is the callback will execute when our API request receives a readable response from Yelp
-        String url = "https://got-quotes.herokuapp.com/quotes";
-        OkHttpClient client = new OkHttpClient.Builder().build();
-        Request request = new Request.Builder().url(url).build();
+
         Call call = client.newCall(request);
         call.enqueue(callback); // here the callback will be executed when I receive the response
     }
