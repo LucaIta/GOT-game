@@ -1,5 +1,7 @@
 package com.example.guest.gotgame;
 
+import android.util.Log;
+
 import com.example.guest.gotgame.model.Quote;
 
 import org.json.JSONException;
@@ -33,6 +35,7 @@ public class GotQuotesService {
                 String characterString = quoteJSON.getString("character");
                 Quote quote = new Quote(quoteString, characterString);
                 quotes.add(quote);
+
 //        } catch (IOException e) {
 //            e.printStackTrace();
         } catch (JSONException e) {

@@ -29,25 +29,27 @@ public class GameActivity extends AppCompatActivity {
 
     private void getQuotes() {
         final GotQuotesService gotQuotesService = new GotQuotesService();
-        gotQuotesService.retrieveQuotes(new Callback() { // this is the callback which I pass to the service
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
+        for (int i = 0; i < 5; i++) {
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                try {
-                    String jsonData = response.body().string();
-                    if (response.isSuccessful()) {
-                        Log.v(TAG, jsonData);
-                        mQuotes = gotQuotesService.processResults(jsonData);
-                        Log.v(TAG, mQuotes.get(0).getQuote());
-                    }
-                } catch (IOException e) {
+            gotQuotesService.retrieveQuotes(new Callback() { // this is the callback which I pass to the service
+                @Override
+                public void onFailure(Call call, IOException e) {
                     e.printStackTrace();
                 }
-            }
-        });
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    try {
+                        String jsonData = response.body().string();
+                        if (response.isSuccessful()) {
+                            Log.v(TAG, jsonData);
+                            mQuotes = gotQuotesService.processResults(jsonData); // cannot put this in a loop
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
     }
 }
