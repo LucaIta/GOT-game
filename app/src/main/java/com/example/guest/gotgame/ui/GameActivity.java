@@ -26,6 +26,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.nextQuoteButton) Button mNextQuoteButton;
     public static final String TAG = GameActivity.class.getSimpleName();
     public ArrayList<Quote> mQuotes = new ArrayList<>();
+    int quoteNumber = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +55,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                         String jsonData = response.body().string();
                         if (response.isSuccessful()) {
                             Log.v(TAG, jsonData);
-                            mQuotes = gotQuotesService.processResults(jsonData); // cannot put this in a loop
+                            mQuotes.add(gotQuotesService.processResults(jsonData)); // cannot put this in a loop
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -65,7 +66,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private Quote getCurrentQuote() {
-        int quoteNumber = 0;
         Log.v (TAG, mQuotes.get(quoteNumber).getQuote());
         quoteNumber ++;
         return mQuotes.get(quoteNumber);

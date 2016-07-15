@@ -21,6 +21,7 @@ public class GotQuotesService { // some of this code might be moved outside the 
     private static String url = "https://got-quotes.herokuapp.com/quotes";
     private static OkHttpClient client = new OkHttpClient.Builder().build();
     private static Request request = new Request.Builder().url(url).build();
+    private Quote quote;
 
 
     public static void retrieveQuotes(Callback callback) { // this is the callback will execute when our API request receives a readable response from Yelp
@@ -29,22 +30,23 @@ public class GotQuotesService { // some of this code might be moved outside the 
         call.enqueue(callback); // here the callback will be executed when I receive the response
     }
 
-    public ArrayList<Quote> processResults(String jsonData) { // I pass the process Results, as the callback, in the game activity
-        ArrayList<Quote> quotes = new ArrayList<>();
+    public Quote processResults(String jsonData) { // I pass the process Results, as the callback, in the game activity // previously I returned an ArrayList of Quotes
+//        ArrayList<Quote> quotes = new ArrayList<>(); // I probably can get rid of this
+//        Quote quote;
 
         try {
                 JSONObject quoteJSON = new JSONObject(jsonData);
                 String quoteString = quoteJSON.getString("quote");
                 String characterString = quoteJSON.getString("character");
-                Quote quote = new Quote(quoteString, characterString);
-                quotes.add(quote);
+                quote = new Quote(quoteString, characterString);
+//                quotes.add(quote); There shoul be no need to Add the quote to quotes
 
 //        } catch (IOException e) {
 //            e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return quotes;
+        return quote; // previously I returned the variable "quotes"
     }
 
 }
