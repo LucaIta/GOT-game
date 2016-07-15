@@ -66,9 +66,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private Quote getCurrentQuote() {
-        Log.v (TAG, mQuotes.get(quoteNumber).getQuote());
         quoteNumber ++;
-        return mQuotes.get(quoteNumber);
+        return mQuotes.get(quoteNumber - 1);
     }
 
 
@@ -92,7 +91,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         public void onClick(View v) {
             if (v == mNextQuoteButton) {
-                getCurrentQuote();
+                Log.v (TAG, getCurrentQuote().getQuote());
             }
         }
     }
