@@ -29,7 +29,7 @@ public class GotQuotesService { // some of this code might be moved outside the 
         call.enqueue(callback); // here the callback will be executed when I receive the response
     }
 
-    public ArrayList<Quote> processResults(String jsonData) {
+    public ArrayList<Quote> processResults(String jsonData) { // I pass the process Results, as the callback, in the game activity
         ArrayList<Quote> quotes = new ArrayList<>();
 
         try {

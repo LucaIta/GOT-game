@@ -28,7 +28,7 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         getQuotes(); // here I call the method which will use the GotQuotesService
         QuoteFragment quoteFragment = new QuoteFragment();
-        loadFragment(quoteFragment, "quote fragment");
+        loadFragment(quoteFragment, "quote fragment"); // this method is created later and takes a fragment and a TAG string
     }
 
     private void getQuotes() {
@@ -76,3 +76,6 @@ public class GameActivity extends AppCompatActivity {
             ft.commit(); // here I suppose I’m just committing
         }
     }
+
+
+// if I connected the next quote button to the loadFragment() I should be able to keep loading fragments
