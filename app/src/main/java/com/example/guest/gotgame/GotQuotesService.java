@@ -46,4 +46,5 @@ public class GotQuotesService { // some of this code might be moved outside the 
         }
         return quotes;
     }
+
 }

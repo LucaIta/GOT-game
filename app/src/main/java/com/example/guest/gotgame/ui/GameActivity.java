@@ -6,6 +6,8 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.guest.gotgame.GotQuotesService;
 import com.example.guest.gotgame.R;
@@ -14,11 +16,14 @@ import com.example.guest.gotgame.model.Quote;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity implements View.OnClickListener {
+    @Bind(R.id.nextQuoteButton) Button mNextQuoteButton;
     public static final String TAG = GameActivity.class.getSimpleName();
     public ArrayList<Quote> mQuotes = new ArrayList<>();
 
@@ -29,6 +34,8 @@ public class GameActivity extends AppCompatActivity {
         getQuotes(); // here I call the method which will use the GotQuotesService
         QuoteFragment quoteFragment = new QuoteFragment();
         loadFragment(quoteFragment, "quote fragment"); // this method is created later and takes a fragment and a TAG string
+        ButterKnife.bind(this);
+        mNextQuoteButton.setOnClickListener(this);
     }
 
     private void getQuotes() {
@@ -57,6 +64,13 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+    private Quote getCurrentQuote() {
+        int quoteNumber = 0;
+        Log.v (TAG, mQuotes.get(quoteNumber).getQuote());
+        quoteNumber ++;
+        return mQuotes.get(quoteNumber);
+    }
+
 
     // here starts the method which should allow me to load a fragment:
 
@@ -74,6 +88,12 @@ public class GameActivity extends AppCompatActivity {
             }
             ft.addToBackStack(null); // dunno
             ft.commit(); // here I suppose I’m just committing
+        }
+
+        public void onClick(View v) {
+            if (v == mNextQuoteButton) {
+                getCurrentQuote();
+            }
         }
     }
 

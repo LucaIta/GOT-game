@@ -32,12 +32,4 @@ public class QuoteFragment extends Fragment {
         mQuoteView.setText("test"); // what if here I set something like "current Quote", I could have a service taking care of it
         return view;
     }
-
-    // Also, when I pulled your project, I had a red squiggly line in the onCreate for your QuoteFragment: ButterKnife.bind(this); I think this is due to the fact that you're not binding a standard view here, but a view contained inside a fragment, and butterknife can't access it as a result.
-    // Perry's code'
-    //    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    //        View rootView = inflater.inflate(R.layout.fragment_quote, container, false);
-    //        TextView mQuoteView = (TextView) rootView.findViewById(R.id.quoteView); // Inflate the layout for this fragment
-    //        mQuoteView.setText("test");
-    //        return rootView;
 }
