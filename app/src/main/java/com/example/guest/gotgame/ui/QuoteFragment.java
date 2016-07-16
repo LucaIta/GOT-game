@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.guest.gotgame.GotQuotesService;
 import com.example.guest.gotgame.R;
 
 import butterknife.Bind;
@@ -26,10 +27,13 @@ public class QuoteFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        GameActivity gameActivity = new GameActivity();
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_quote, container, false);
         ButterKnife.bind(this, view);
-        mQuoteView.setText("test"); // what if here I set something like "current Quote", I could have a service taking care of it
+//      mQuoteView.setText("test"); // what if here I set something like "current Quote", I could have a service taking care of it
+//        mQuoteView.setText(gameActivity.getCurrentQuote().getQuote());
+        mQuoteView.setText("Test");
         return view;
     }
 }

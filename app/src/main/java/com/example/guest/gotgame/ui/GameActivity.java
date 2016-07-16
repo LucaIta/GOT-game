@@ -13,6 +13,8 @@ import com.example.guest.gotgame.GotQuotesService;
 import com.example.guest.gotgame.R;
 import com.example.guest.gotgame.model.Quote;
 
+import org.parceler.Parcels;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -25,50 +27,54 @@ import okhttp3.Response;
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
     @Bind(R.id.nextQuoteButton) Button mNextQuoteButton;
     public static final String TAG = GameActivity.class.getSimpleName();
-    public ArrayList<Quote> mQuotes = new ArrayList<>();
+//    public ArrayList<Quote> mQuotes = new ArrayList<>(); I comment It out because I want to put the quotes in the service
     int quoteNumber = 0;
+    QuoteFragment quoteFragment = new QuoteFragment();
+    GotQuotesService gotQuotesService = new GotQuotesService();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        getQuotes(); // here I call the method which will use the GotQuotesService
-        QuoteFragment quoteFragment = new QuoteFragment();
-        loadFragment(quoteFragment, "quote fragment"); // this method is created later and takes a fragment and a TAG string
+        loadFragment(quoteFragment, "quote fragment");
+//        getQuotes(); // here I call the method which will use the GotQuotesService comment out because I want it to happen in the main activity
         ButterKnife.bind(this);
-        mNextQuoteButton.setOnClickListener(this);
+        ArrayList<Quote> mQuotes = Parcels.unwrap(getIntent().getParcelableExtra("quotes"));
+        Log.v("TAG", "the quote in the GameActivity is: "  + mQuotes.get(0).getQuote());
+//        mRestaurants = Parcels.unwrap(getIntent().getParcelableExtra("restaurants"));
+
     }
 
-    private void getQuotes() {
-        final GotQuotesService gotQuotesService = new GotQuotesService();
-        for (int i = 0; i < 5; i++) {
+//    private void getQuotes() {  // comment out because I want it to happen in them ain activity
+//        final GotQuotesService gotQuotesService = new GotQuotesService();
+//        for (int i = 0; i < 5; i++) {
+//
+//            gotQuotesService.retrieveQuotes(new Callback() { // this is the callback which I pass to the service
+//                @Override
+//                public void onFailure(Call call, IOException e) {
+//                    e.printStackTrace();
+//                }
+//
+//                @Override
+//                public void onResponse(Call call, Response response) throws IOException {
+//                    try {
+//                        String jsonData = response.body().string();
+//                        if (response.isSuccessful()) {
+//                            Log.v(TAG, jsonData);
+//                            mQuotes.add(gotQuotesService.processResults(jsonData)); get RID of this because now it's the Service that holdes the quotes
+//                            // I could load the fragment or the button in main activity only when I = 4...
+//                        }
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            });
+//        }
+//        loadFragment(quoteFragment, "quote fragment"); // this method is created later and takes a fragment and a TAG string // loading it ad the end of the for loop makes the app crash because it tries to access the array which is still empty
+//    }
 
-            gotQuotesService.retrieveQuotes(new Callback() { // this is the callback which I pass to the service
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    e.printStackTrace();
-                }
 
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    try {
-                        String jsonData = response.body().string();
-                        if (response.isSuccessful()) {
-                            Log.v(TAG, jsonData);
-                            mQuotes.add(gotQuotesService.processResults(jsonData)); // cannot put this in a loop
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-        }
-    }
-
-    private Quote getCurrentQuote() {
-        quoteNumber ++;
-        return mQuotes.get(quoteNumber - 1);
-    }
 
 
     // here starts the method which should allow me to load a fragment:
@@ -91,10 +97,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         public void onClick(View v) {
             if (v == mNextQuoteButton) {
-                Log.v (TAG, getCurrentQuote().getQuote());
+                Log.v (TAG, gotQuotesService.getCurrentQuote().getQuote());
             }
         }
     }
 
 
 // if I connected the next quote button to the loadFragment() I should be able to keep loading fragments
+// I should probably load the fragment onResponse
