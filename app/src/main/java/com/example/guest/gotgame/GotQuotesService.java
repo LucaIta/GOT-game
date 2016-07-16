@@ -17,7 +17,7 @@ public class GotQuotesService {
     private static Request request = new Request.Builder().url(url).build();
     private Quote quote;
     int quoteNumber = 0;
-    public ArrayList<Quote> mQuotes = new ArrayList<>();
+    public ArrayList<Quote> mQuotes = new ArrayList<>(); // maybe I should go back to returning the Array Rather then keeping it in here
 
     public static void retrieveQuotes(Callback callback) { // this is the callback will execute when our API request receives a readable response from Yelp
 
@@ -26,8 +26,6 @@ public class GotQuotesService {
     }
 
     public void processResults(String jsonData) { // I pass the process Results, as the callback, in the game activity // previously I returned an ArrayList of Quotes
-//        ArrayList<Quote> quotes = new ArrayList<>(); // I probably can get rid of this
-//        Quote quote;
 
         try {
                 JSONObject quoteJSON = new JSONObject(jsonData);

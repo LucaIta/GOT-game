@@ -38,14 +38,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-//        Log.v("GotQuoteService", Integer.toString(gotQuotesService.mQuotes.size()));
         Intent intent = new Intent(MainActivity.this, GameActivity.class);
         intent.putExtra("quotes", Parcels.wrap(gotQuotesService.mQuotes));
         startActivity(intent);
     }
 
-    private void getQuotes() {  // comment out because I want it to happen in them ain activity
-//    final GotQuotesService gotQuotesService = new GotQuotesService(); // to restore
+    private void getQuotes() {
         for (int i = 0; i < 5; i++) {
 
             gotQuotesService.retrieveQuotes(new Callback() { // this is the callback which I pass to the service
@@ -60,8 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         String jsonData = response.body().string();
                         if (response.isSuccessful()) {
                             Log.v(TAG, jsonData);
-                            gotQuotesService.processResults(jsonData); // get RID of this because now it's the Service that holdes the quotes
-                            // I could load the fragment or the button in main activity only when I = 4...
+                            gotQuotesService.processResults(jsonData);
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
