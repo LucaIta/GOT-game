@@ -31,9 +31,7 @@ public class QuoteFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_quote, container, false);
         ButterKnife.bind(this, view);
-//      mQuoteView.setText("test"); // what if here I set something like "current Quote", I could have a service taking care of it
-//        mQuoteView.setText(gameActivity.getCurrentQuote().getQuote());
-        mQuoteView.setText("Test");
+//        mQuoteView.setText("Test");
         return view;
     }
 }

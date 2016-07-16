@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
 import com.example.guest.gotgame.GotQuotesService;
 import com.example.guest.gotgame.R;
 import com.example.guest.gotgame.model.Quote;
@@ -20,9 +22,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.nextQuoteButton) Button mNextQuoteButton;
     public static final String TAG = GameActivity.class.getSimpleName();
     public ArrayList<Quote> mQuotes = new ArrayList<>();
-    int quoteNumber = 0;
     QuoteFragment quoteFragment = new QuoteFragment();
-    GotQuotesService gotQuotesService = new GotQuotesService();
 
 
     @Override
@@ -31,9 +31,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_game);
         loadFragment(quoteFragment, "quote fragment");
         ButterKnife.bind(this);
+        mNextQuoteButton.setOnClickListener(this);
         mQuotes = Parcels.unwrap(getIntent().getParcelableExtra("quotes"));
         Log.v(TAG, "This is the quote in the GameActivity: " + mQuotes.get(0).getQuote());
+
     }
+
+//    Fragment frag = getFragmentManager().findFragmentById(R.id.yourFragment);
+//    ((TextView) frag.getView().findViewById(R.id.textView)).setText(s);
 
     // here starts the method which should allow me to load a fragment:
 
@@ -55,7 +60,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         public void onClick(View v) {
             if (v == mNextQuoteButton) {
-                Log.v (TAG, gotQuotesService.getCurrentQuote().getQuote());
+                Log.v(TAG, "TEST");
+                Fragment frag = getFragmentManager().findFragmentById((R.id.quoteLayout));
+                TextView mQuoteView = (TextView) frag.getView().findViewById(R.id.quoteView);
+                mQuoteView.setText("If I see this it means that it works");
             }
         }
     }
