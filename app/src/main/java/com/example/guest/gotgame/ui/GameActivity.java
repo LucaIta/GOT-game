@@ -15,6 +15,8 @@ import com.example.guest.gotgame.R;
 import com.example.guest.gotgame.model.Quote;
 import org.parceler.Parcels;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Random;
 
 import butterknife.Bind;
@@ -22,6 +24,12 @@ import butterknife.ButterKnife;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
     @Bind(R.id.nextQuoteButton) Button mNextQuoteButton;
+
+    @Bind(R.id.button1) Button mButton1;
+    @Bind(R.id.button2) Button mButton2;
+    @Bind(R.id.button3) Button mButton3;
+    @Bind(R.id.button4) Button mButton4;
+
     public static final String TAG = GameActivity.class.getSimpleName();
     public ArrayList<Quote> mQuotes = new ArrayList<>();
     QuoteFragment quoteFragment = new QuoteFragment();
@@ -73,8 +81,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 Fragment frag = getFragmentManager().findFragmentById((R.id.quoteLayout));
                 TextView mQuoteView = (TextView) frag.getView().findViewById(R.id.quoteView);
                 mQuoteView.setText(getCurrentQuote().getQuote());
+//                Log.v(TAG, getCharacters().get(0));
+                setButtons();
                 quoteCounter ++;
-                Log.v(TAG, getCharacters().get(0));
+
             }
         }
 
@@ -86,11 +96,21 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             ArrayList<String> characters = new ArrayList<>();
             characters.add(getCurrentQuote().getCharacter());
             Random rand = new Random(); // generates an Instance of Random to use it later
-            for (int i = 1; i < 3; i++) { // add 3 random characters to the array
+            for (int i = 1; i < 4; i++) { // add 3 random characters to the array
                 int randomNum = rand.nextInt(4);
                 characters.add(mQuotes.get(randomNum).getCharacter());
+                Collections.shuffle(Arrays.asList(characters)); // here I'm shuffling the array
             }
             return characters;
+        }
+
+        public void setButtons() {
+            ArrayList<String> characters = getCharacters();
+            Log.v(TAG, "the size of the character array is" + Integer.toString(characters.size()));
+            mButton1.setText(characters.get(0));
+            mButton2.setText(characters.get(1));
+            mButton3.setText(characters.get(2));
+            mButton4.setText(characters.get(3));
         }
 
     }
