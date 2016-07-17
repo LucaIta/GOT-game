@@ -34,4 +34,10 @@ public class QuoteFragment extends Fragment {
 //        mQuoteView.setText("Test");
         return view;
     }
+
+//    public void setQuote() { // doesn't work
+//        View view = inflater.inflate(R.layout.fragment_quote, container, false);
+//        ButterKnife.bind(this, view);
+//        mQuoteView.setText("Test");
+//    }
 }

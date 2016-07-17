@@ -23,18 +23,22 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public static final String TAG = GameActivity.class.getSimpleName();
     public ArrayList<Quote> mQuotes = new ArrayList<>();
     QuoteFragment quoteFragment = new QuoteFragment();
+    int quoteCounter = 0;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+//        quoteFragment.setQuote();
         loadFragment(quoteFragment, "quote fragment");
         ButterKnife.bind(this);
         mNextQuoteButton.setOnClickListener(this);
         mQuotes = Parcels.unwrap(getIntent().getParcelableExtra("quotes"));
         Log.v(TAG, "This is the quote in the GameActivity: " + mQuotes.get(0).getQuote());
-
+//        Fragment frag = getFragmentManager().findFragmentById((R.id.quoteLayout)); // here It doesn't work though it works in the button
+//        TextView mQuoteView = (TextView) frag.getView().findViewById(R.id.quoteView);
+//        mQuoteView.setText("If I see this it means that it works");
     }
 
 //    Fragment frag = getFragmentManager().findFragmentById(R.id.yourFragment);
@@ -49,22 +53,31 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             FragmentTransaction ft = fm.beginTransaction();
             Fragment fragment = getFragmentManager().findFragmentById((R.id.quoteLayout)); // here I retrieve the current load fragment to check if one has already been loaded
 
+
             if (fragment == null) {
                 ft.add(R.id.quoteLayout, frag, tag); // I load the fragment which I passed to the method -- the syntax here goes: (container where I want to add a fragment, fragment to add, tag passed to the method)
             } else {
                 ft.replace(R.id.quoteLayout, frag, tag); // here if there already is a fragment, I just replace it
             }
+//          Fragment frag2 = getFragmentManager().findFragmentById((R.id.quoteLayout)); // here It doesn't work though it works in the button
+//            TextView mQuoteView = (TextView) frag2.getView().findViewById(R.id.quoteView);// the one which is null is the fragment that I retrieve
+//            mQuoteView.setText("If I see this it means that it works");
             ft.addToBackStack(null); // dunno
             ft.commit(); // here I suppose I’m just committing
         }
 
         public void onClick(View v) {
             if (v == mNextQuoteButton) {
-                Log.v(TAG, "TEST");
                 Fragment frag = getFragmentManager().findFragmentById((R.id.quoteLayout));
                 TextView mQuoteView = (TextView) frag.getView().findViewById(R.id.quoteView);
-                mQuoteView.setText("If I see this it means that it works");
+                mQuoteView.setText(currentQuote().getQuote());
             }
+        }
+
+        public Quote currentQuote() {
+            quoteCounter ++;
+            return mQuotes.get(quoteCounter -1);
+
         }
     }
 
