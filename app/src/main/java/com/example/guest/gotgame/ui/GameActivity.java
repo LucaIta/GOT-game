@@ -15,6 +15,8 @@ import com.example.guest.gotgame.R;
 import com.example.guest.gotgame.model.Quote;
 import org.parceler.Parcels;
 import java.util.ArrayList;
+import java.util.Random;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -70,15 +72,27 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             if (v == mNextQuoteButton) {
                 Fragment frag = getFragmentManager().findFragmentById((R.id.quoteLayout));
                 TextView mQuoteView = (TextView) frag.getView().findViewById(R.id.quoteView);
-                mQuoteView.setText(currentQuote().getQuote());
+                mQuoteView.setText(getCurrentQuote().getQuote());
+                quoteCounter ++;
+                Log.v(TAG, getCharacters().get(0));
             }
         }
 
-        public Quote currentQuote() {
-            quoteCounter ++;
-            return mQuotes.get(quoteCounter -1);
-
+        public Quote getCurrentQuote() {
+            return mQuotes.get(quoteCounter);
         }
+
+        public ArrayList<String> getCharacters() {
+            ArrayList<String> characters = new ArrayList<>();
+            characters.add(getCurrentQuote().getCharacter());
+            Random rand = new Random(); // generates an Instance of Random to use it later
+            for (int i = 1; i < 3; i++) { // add 3 random characters to the array
+                int randomNum = rand.nextInt(4);
+                characters.add(mQuotes.get(randomNum).getCharacter());
+            }
+            return characters;
+        }
+
     }
 
 
