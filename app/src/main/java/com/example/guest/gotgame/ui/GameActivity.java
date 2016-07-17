@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.guest.gotgame.GotQuotesService;
 import com.example.guest.gotgame.R;
@@ -33,6 +34,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public static final String TAG = GameActivity.class.getSimpleName();
     public ArrayList<Quote> mQuotes = new ArrayList<>();
     QuoteFragment quoteFragment = new QuoteFragment();
+    String currentCharacter = "";
     int quoteCounter = 0;
 
 
@@ -44,6 +46,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         loadFragment(quoteFragment, "quote fragment");
         ButterKnife.bind(this);
         mNextQuoteButton.setOnClickListener(this);
+        mButton1.setOnClickListener(this);
+        mButton2.setOnClickListener(this);
+        mButton3.setOnClickListener(this);
+        mButton4.setOnClickListener(this);
+
         mQuotes = Parcels.unwrap(getIntent().getParcelableExtra("quotes"));
         Log.v(TAG, "This is the quote in the GameActivity: " + mQuotes.get(0).getQuote());
 //        Fragment frag = getFragmentManager().findFragmentById((R.id.quoteLayout)); // here It doesn't work though it works in the button
@@ -80,11 +87,24 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             if (v == mNextQuoteButton) {
                 Fragment frag = getFragmentManager().findFragmentById((R.id.quoteLayout));
                 TextView mQuoteView = (TextView) frag.getView().findViewById(R.id.quoteView);
+                currentCharacter = getCurrentQuote().getCharacter(); // I should refactor here
                 mQuoteView.setText(getCurrentQuote().getQuote());
 //                Log.v(TAG, getCharacters().get(0));
                 setButtons();
                 quoteCounter ++;
-
+            } if (v == mButton1 || v == mButton2 || v == mButton3 || v == mButton4) {
+                Button pressedButton = (Button) v;
+                String character = pressedButton.getText().toString();
+                if (character == currentCharacter) {
+                    Log.v(TAG, "CORRECT");
+//                    Context context = getApplicationContext();
+//                    CharSequence text = "Hello toast!";
+//                    int duration = Toast.LENGTH_SHORT;
+//
+//                    Toast toast = Toast.makeText(context, text, duration);
+                } else {
+                    Log.v(TAG, "WRONG");
+                }
             }
         }
 
@@ -99,7 +119,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             for (int i = 1; i < 4; i++) { // add 3 random characters to the array
                 int randomNum = rand.nextInt(4);
                 characters.add(mQuotes.get(randomNum).getCharacter());
-                Collections.shuffle(Arrays.asList(characters)); // here I'm shuffling the array
+                Collections.shuffle(Arrays.asList(characters)); // here I'm shuffling the array // doesn't work anymore, it used to work...
             }
             return characters;
         }
