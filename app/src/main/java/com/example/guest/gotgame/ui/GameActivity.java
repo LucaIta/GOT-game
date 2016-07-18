@@ -95,13 +95,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             } if (v == mButton1 || v == mButton2 || v == mButton3 || v == mButton4) {
                 Button pressedButton = (Button) v;
                 String character = pressedButton.getText().toString();
-                if (character == currentCharacter) {
+                if (character == currentCharacter) { // here I check wheter the correct button has been clicked
                     Log.v(TAG, "CORRECT");
-//                    Context context = getApplicationContext();
-//                    CharSequence text = "Hello toast!";
-//                    int duration = Toast.LENGTH_SHORT;
-//
-//                    Toast toast = Toast.makeText(context, text, duration);
                 } else {
                     Log.v(TAG, "WRONG");
                 }

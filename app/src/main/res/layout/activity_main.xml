@@ -17,4 +17,14 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="33dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Click here to check out the GitHub page of this App!"
+        android:drawableLeft="@drawable/ic_home_black_24dp"
+        android:drawablePadding="4dp"
+        android:id="@+id/gitHubLinkView"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
