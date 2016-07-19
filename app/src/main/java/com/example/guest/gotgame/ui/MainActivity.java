@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     GotQuotesService gotQuotesService = new GotQuotesService(); // to get rid of
     @Bind(R.id. playButton) Button mPlayButton;
     @Bind(R.id. gitHubLinkView) TextView mGitHubLinkView;
+    @Bind(R.id. registerTextView) TextView mRegisterTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ButterKnife.bind(this);
         mPlayButton.setOnClickListener(this);
         mGitHubLinkView.setOnClickListener(this);
+        mRegisterTextView.setOnClickListener(this);
     }
 
     @Override
@@ -49,6 +51,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } if (v == mGitHubLinkView) {
             Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/LucaIta/GOT-game"));
             startActivity(webIntent);
+        } if (v == mRegisterTextView) {
+            Intent intent = new Intent(MainActivity.this, CreateAccountActivity.class);
+            startActivity(intent);
         }
     }
 
