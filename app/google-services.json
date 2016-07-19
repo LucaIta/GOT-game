@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "182709418226",
+    "firebase_url": "https://got-game-3f26f.firebaseio.com",
+    "project_id": "got-game-3f26f",
+    "storage_bucket": "got-game-3f26f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:182709418226:android:04e37ccc1bc14364",
+        "android_client_info": {
+          "package_name": "com.example.guest.gotgame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "182709418226-iv1urve65va35bptkni9njosv5ugmdjh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.guest.gotgame",
+            "certificate_hash": "66B05C72357B282D85DCA7403730B70E73FB3836"
+          }
+        },
+        {
+          "client_id": "182709418226-usflsou824k4qo5vdtba8ou1nqtlurse.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeJHFnbWAXsACLI5DpiN7yKdzh9Fnf5fU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "182709418226-usflsou824k4qo5vdtba8ou1nqtlurse.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
