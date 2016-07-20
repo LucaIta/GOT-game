@@ -114,7 +114,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             for (int i = 1; i < 4; i++) { // add 3 random characters to the array
                 int randomNum = rand.nextInt(4);
                 characters.add(mQuotes.get(randomNum).getCharacter());
-                Collections.shuffle(Arrays.asList(characters)); // here I'm shuffling the array // doesn't work anymore, it used to work...
+                Collections.shuffle(characters); // here I'm shuffling the array // doesn't work anymore, it used to work...
             }
             return characters;
         }
