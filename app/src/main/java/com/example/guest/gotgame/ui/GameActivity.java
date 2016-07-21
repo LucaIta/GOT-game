@@ -110,10 +110,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             ArrayList<String> characters = new ArrayList<>();
             characters.add(getCurrentQuote().getCharacter());
             Random rand = new Random(); // generates an Instance of Random to use it later
-            for (int i = 1; i < 4; i++) { // add 3 random characters to the array
+            for (;characters.size() < 4;) { // add 3 random characters to the array
                 int randomNum = rand.nextInt(4);
                 characters.add(mQuotes.get(randomNum).getCharacter());
-                Collections.shuffle(characters); // here I'm shuffling the array // doesn't work anymore, it used to work...
+                Collections.shuffle(characters); // here I'm shuffling the array
             }
             return characters;
         }

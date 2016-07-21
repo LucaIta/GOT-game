@@ -22,6 +22,7 @@ import org.parceler.Parcels;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -33,6 +34,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public static final String TAG = MainActivity.class.getSimpleName();
     public ArrayList<Quote> mQuotes = new ArrayList<>();
+    public ArrayList<String> mCharacters = new ArrayList<>();
+
 
     GotQuotesService gotQuotesService = new GotQuotesService(); // to get rid of
     @Bind(R.id. playButton) Button mPlayButton;
@@ -42,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getQuotes();
+//        getCharacters();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -89,6 +93,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             });
         }
     }
+
+    private void getCharacters() {
+        for (Quote quote : mQuotes) {
+            if (!(mCharacters.contains(quote.getCharacter()))) {
+                mCharacters.add(quote.getCharacter());
+                Log.v(TAG, "The size of the character array, in the for Each LOOP is" + Integer.toString(mCharacters.size()));
+            }
+        }
+        for (;mCharacters.size() < 4;) {
+            gotQuotesService.retrieveQuotes(new Callback() { // this is the callback which I pass to the service
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    e.printStackTrace();
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    try {
+                        String jsonData = response.body().string();
+                        if (response.isSuccessful()) {
+                            Log.v(TAG, jsonData);
+                            if (!(mCharacters.contains(gotQuotesService.processResults(jsonData).getQuote()))) {
+                                mCharacters.add(gotQuotesService.processResults(jsonData).getQuote());
+                                Log.v(TAG, "The size of the character array, in the inner LOOP is" + mCharacters.size());
+                            }
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+        Log.v(TAG, "The size of the character array is" + Integer.toString(mCharacters.size()));
+        Log.v(TAG, "The third element in the character array is" + mCharacters.get(3));
+    }
+
+//    Arrays.asList(yourArray).contains(yourValue)
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
