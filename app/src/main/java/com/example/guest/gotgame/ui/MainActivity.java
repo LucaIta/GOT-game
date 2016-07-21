@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.guest.gotgame.GotQuotesService;
+import com.example.guest.gotgame.model.Quote;
 import com.example.guest.gotgame.ui.GameActivity;
 import com.example.guest.gotgame.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import org.parceler.Parcels;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -30,6 +32,8 @@ import okhttp3.Response;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String TAG = MainActivity.class.getSimpleName();
+    public ArrayList<Quote> mQuotes = new ArrayList<>();
+
     GotQuotesService gotQuotesService = new GotQuotesService(); // to get rid of
     @Bind(R.id. playButton) Button mPlayButton;
     @Bind(R.id. gitHubLinkView) TextView mGitHubLinkView;
@@ -50,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if (v == mPlayButton) {
             Intent intent = new Intent(MainActivity.this, GameActivity.class);
-            intent.putExtra("quotes", Parcels.wrap(gotQuotesService.mQuotes));
+            intent.putExtra("quotes", Parcels.wrap(mQuotes));
             startActivity(intent);
         } if (v == mGitHubLinkView) {
             Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/LucaIta/GOT-game"));
@@ -76,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         String jsonData = response.body().string();
                         if (response.isSuccessful()) {
                             Log.v(TAG, jsonData);
-                            gotQuotesService.processResults(jsonData);
+                            mQuotes.add(gotQuotesService.processResults(jsonData));
                         }
                     } catch (IOException e) {
                         e.printStackTrace();

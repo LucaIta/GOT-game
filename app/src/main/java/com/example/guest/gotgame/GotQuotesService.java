@@ -16,8 +16,8 @@ public class GotQuotesService {
     private static OkHttpClient client = new OkHttpClient.Builder().build();
     private static Request request = new Request.Builder().url(url).build();
     private Quote quote;
-    int quoteNumber = 0;
-    public ArrayList<Quote> mQuotes = new ArrayList<>(); // maybe I should go back to returning the Array Rather then keeping it in here
+//    int quoteNumber = 0;
+//    public ArrayList<Quote> mQuotes = new ArrayList<>(); // maybe I should go back to returning the Array Rather then keeping it in here
 
     public static void retrieveQuotes(Callback callback) { // this is the callback will execute when our API request receives a readable response from Yelp
 
@@ -25,15 +25,14 @@ public class GotQuotesService {
         call.enqueue(callback); // here the callback will be executed when I receive the response
     }
 
-    public void processResults(String jsonData) { // I pass the process Results, as the callback, in the game activity // previously I returned an ArrayList of Quotes
+    public Quote processResults(String jsonData) { // I pass the process Results, as the callback, in the game activity // previously I returned an ArrayList of Quotes
 
         try {
                 JSONObject quoteJSON = new JSONObject(jsonData);
                 String quoteString = quoteJSON.getString("quote");
                 String characterString = quoteJSON.getString("character");
                 quote = new Quote(quoteString, characterString);
-                mQuotes.add(quote);
-                Log.v("GotQuoteService", mQuotes.get(0).getQuote());
+//                mQuotes.add(quote);
 //                Log.v("GotQuoteService", characterString.valueOf(mQuotes.size())); // here I know that the quote gets added, because the log works
 
 //        } catch (IOException e) {
@@ -41,13 +40,13 @@ public class GotQuotesService {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-//      return quote; got Rid of the return because I want the variable to stay in here
+      return quote;
     }
 
-    public Quote getCurrentQuote() {
-        quoteNumber ++;
-        Log.v("GotQuoteService", Integer.toString(mQuotes.size()));
-        return mQuotes.get(quoteNumber - 1);
-    }
+//    public Quote getCurrentQuote() {  // this shouldn't be curently used
+//        quoteNumber ++;
+//        Log.v("GotQuoteService", Integer.toString(mQuotes.size()));
+//        return mQuotes.get(quoteNumber - 1);
+//    }
 
 }

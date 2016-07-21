@@ -25,7 +25,6 @@ import butterknife.ButterKnife;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
     @Bind(R.id.nextQuoteButton) Button mNextQuoteButton;
-
     @Bind(R.id.button1) Button mButton1;
     @Bind(R.id.button2) Button mButton2;
     @Bind(R.id.button3) Button mButton3;
