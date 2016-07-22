@@ -35,6 +35,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     QuoteFragment quoteFragment = new QuoteFragment();
     String currentCharacter = "";
     int quoteCounter = 0;
+    int score = 0;
 
 
     @Override
@@ -95,9 +96,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 Button pressedButton = (Button) v;
                 String character = pressedButton.getText().toString();
                 if (character == currentCharacter) { // here I check wheter the correct button has been clicked
-                    Log.v(TAG, "CORRECT");
+                    Toast.makeText(GameActivity.this, "CORRECT", Toast.LENGTH_LONG).show();
+                    score ++;
                 } else {
-                    Log.v(TAG, "WRONG");
+                    Toast.makeText(GameActivity.this, "WRONG", Toast.LENGTH_LONG).show();
                 }
             }
         }
