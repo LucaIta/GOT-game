@@ -129,9 +129,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             return mQuotes.get(quoteCounter);
         }
 
-        public void saveScore(int score) {
-           mScoreReference.push().setValue(score);
-        }
 
         public ArrayList<String> getCharacters() {
             ArrayList<String> characters = new ArrayList<>();
