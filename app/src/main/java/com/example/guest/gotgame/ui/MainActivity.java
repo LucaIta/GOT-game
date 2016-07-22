@@ -95,13 +95,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void getCharacters() {
-        for (Quote quote : mQuotes) {
-            if (!(mCharacters.contains(quote.getCharacter()))) {
-                mCharacters.add(quote.getCharacter());
-                Log.v(TAG, "The size of the character array, in the for Each LOOP is" + Integer.toString(mCharacters.size()));
-            }
-        }
-        for (;mCharacters.size() < 4;) {
+//        for (Quote quote : mQuotes) {
+//            if (!(mCharacters.contains(quote.getCharacter()))) {
+//                mCharacters.add(quote.getCharacter());
+//                Log.v(TAG, "The size of the character array, in the for Each LOOP is" + Integer.toString(mCharacters.size()));
+//            }
+//        }
+        for (;mCharacters.size() < 4;) { // this seems to be wrong, because I keep looping
+            Log.v(TAG, "new iteration it the for LOOP the size of the array is" + mCharacters.size());
             gotQuotesService.retrieveQuotes(new Callback() { // this is the callback which I pass to the service
                 @Override
                 public void onFailure(Call call, IOException e) {
@@ -113,9 +114,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     try {
                         String jsonData = response.body().string();
                         if (response.isSuccessful()) {
+                            Log.v(TAG, "I'm in the response is successful code"); // I get here, why I'm not adding?
                             Log.v(TAG, jsonData);
-                            if (!(mCharacters.contains(gotQuotesService.processResults(jsonData).getQuote()))) {
-                                mCharacters.add(gotQuotesService.processResults(jsonData).getQuote());
+                            if (!(mCharacters.contains(gotQuotesService.processResults(jsonData).getCharacter()))) {
+                                Log.v(TAG, "I'm in the if statement for when whe character is not contained in the array"); // I get here!!!!!!
+                                mCharacters.add(gotQuotesService.processResults(jsonData).getCharacter()); // the size of the array increases to 40 !!!!
                                 Log.v(TAG, "The size of the character array, in the inner LOOP is" + mCharacters.size());
                             }
                         }
