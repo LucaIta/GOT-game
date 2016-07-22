@@ -52,7 +52,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mButton4.setOnClickListener(this);
 
         mQuotes = Parcels.unwrap(getIntent().getParcelableExtra("quotes"));
-        Log.v(TAG, "This is the quote in the GameActivity: " + mQuotes.get(0).getQuote());
+        Log.v(TAG, "The size of the array of quotes is " + Integer.toString(mQuotes.size()));
 //        Fragment frag = getFragmentManager().findFragmentById((R.id.quoteLayout)); // here It doesn't work though it works in the button
 //        TextView mQuoteView = (TextView) frag.getView().findViewById(R.id.quoteView);
 //        mQuoteView.setText("If I see this it means that it works");
@@ -85,21 +85,26 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         public void onClick(View v) {
             if (v == mNextQuoteButton) {
-                Fragment frag = getFragmentManager().findFragmentById((R.id.quoteLayout));
-                TextView mQuoteView = (TextView) frag.getView().findViewById(R.id.quoteView);
-                currentCharacter = getCurrentQuote().getCharacter(); // I should refactor here
-                mQuoteView.setText(getCurrentQuote().getQuote());
-//                Log.v(TAG, getCharacters().get(0));
-                setButtons();
-                quoteCounter ++;
+                // do nothing, to remove, I used it in the first screen
             } if (v == mButton1 || v == mButton2 || v == mButton3 || v == mButton4) {
-                Button pressedButton = (Button) v;
-                String character = pressedButton.getText().toString();
-                if (character == currentCharacter) { // here I check wheter the correct button has been clicked
-                    Toast.makeText(GameActivity.this, "CORRECT", Toast.LENGTH_LONG).show();
-                    score ++;
+                if (!(quoteCounter == 5)) {
+                    Button pressedButton = (Button) v;
+                    String character = pressedButton.getText().toString();
+                    if (character == currentCharacter) { // here I check wheter the correct button has been clicked
+                        Toast.makeText(GameActivity.this, "CORRECT", Toast.LENGTH_LONG).show();
+                        score ++;
+                    } else {
+                        Toast.makeText(GameActivity.this, "WRONG", Toast.LENGTH_LONG).show();
+                    }
+                    Fragment frag = getFragmentManager().findFragmentById((R.id.quoteLayout));
+                    TextView mQuoteView = (TextView) frag.getView().findViewById(R.id.quoteView);
+                    currentCharacter = getCurrentQuote().getCharacter(); // I should refactor here
+                    mQuoteView.setText(getCurrentQuote().getQuote());
+//                Log.v(TAG, getCharacters().get(0));
+                    setButtons();
+                    quoteCounter ++;
                 } else {
-                    Toast.makeText(GameActivity.this, "WRONG", Toast.LENGTH_LONG).show();
+                    hideButtons();
                 }
             }
         }
@@ -128,6 +133,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             mButton3.setText(characters.get(2));
             mButton4.setText(characters.get(3));
         }
+
+        public void hideButtons() {
+            mButton1.setVisibility(View.GONE);
+            mButton2.setVisibility(View.GONE);
+            mButton3.setVisibility(View.GONE);
+            mButton4.setVisibility(View.GONE);
+        }
+
 
     }
 
