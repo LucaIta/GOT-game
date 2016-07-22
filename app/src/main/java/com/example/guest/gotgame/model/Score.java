@@ -11,4 +11,12 @@ public class Score {
         this.score = score;
 //        this.time = time;
     }
+
+    public String getScore() {
+        return score;
+    }
+
+//    public String getTime() {
+//        return time;
+//    }
 }
