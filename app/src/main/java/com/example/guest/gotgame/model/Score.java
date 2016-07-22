@@ -7,8 +7,8 @@ public class Score {
     public String score;
     public String time;
 
-    public Score(String score, String time) {
+    public Score(String score) {
         this.score = score;
-        this.time = time;
+//        this.time = time;
     }
 }

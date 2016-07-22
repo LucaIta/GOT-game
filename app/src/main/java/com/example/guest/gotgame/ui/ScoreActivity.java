@@ -30,22 +30,20 @@ public class ScoreActivity extends AppCompatActivity {
         String score = intent.getStringExtra("score");
         Log.v("TAG", "the score retrieved from the intent is" + score);
 
-        Score newScore = new Score(score,getCurrentTime());
+        Score newScore = new Score(score);
         saveScore(newScore);
-        String helloNadyia = "Hello Nadyia";
-        89789798789
     }
 
-    public String getCurrentTime() {
-        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        Date now = new Date();
-        String strDate = sdfDate.format(now);
-        return strDate;
-    }
-
+//    public String getCurrentTime() {
+//        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+//        Date now = new Date();
+//        String strDate = sdfDate.format(now);
+//        return strDate;
+//    }
+//
     public void saveScore(Score newScore) {
         mScoreReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_SCORE);
-        mScoreReference.push().setValue(score);
+        mScoreReference.push().setValue(newScore);
     }
 
 }
