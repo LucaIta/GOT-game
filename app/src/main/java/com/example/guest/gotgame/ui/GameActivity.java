@@ -11,9 +11,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.guest.gotgame.Constants;
 import com.example.guest.gotgame.GotQuotesService;
 import com.example.guest.gotgame.R;
 import com.example.guest.gotgame.model.Quote;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import org.parceler.Parcels;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,6 +36,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     public static final String TAG = GameActivity.class.getSimpleName();
     public ArrayList<Quote> mQuotes = new ArrayList<>();
+    private DatabaseReference mScoreReference;
     QuoteFragment quoteFragment = new QuoteFragment();
     String currentCharacter = "";
     int quoteCounter = 0;
@@ -110,12 +115,18 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 } else {
                     hideButtons();
                     mQuoteView.setText("You scored " + score + "/5");
+                    mScoreReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_SCORE);
+                    saveScore(score);
                 }
             }
         }
 
         public Quote getCurrentQuote() {
             return mQuotes.get(quoteCounter);
+        }
+
+        public void saveScore(int score) {
+           mScoreReference.push().setValue(score);
         }
 
         public ArrayList<String> getCharacters() {
