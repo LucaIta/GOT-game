@@ -3,6 +3,7 @@ package com.example.guest.gotgame.ui;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -113,10 +114,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     setButtons();
                     quoteCounter ++;
                 } else {
-                    hideButtons();
-                    mQuoteView.setText("You scored " + score + "/5");
-                    mScoreReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_SCORE);
-                    saveScore(score);
+                    Intent intent = new Intent(GameActivity.this, ScoreActivity.class);
+                    intent.putExtra("score", Integer.toString(score)); // here I need to put as an extra, a score object....
+                    startActivity(intent);
+//                    hideButtons();
+//                    mQuoteView.setText("You scored " + score + "/5");
+//                    mScoreReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_SCORE);
+//                    saveScore(score);
                 }
             }
         }
