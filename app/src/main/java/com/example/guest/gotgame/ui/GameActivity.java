@@ -84,6 +84,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         public void onClick(View v) {
+
+            Fragment frag = getFragmentManager().findFragmentById((R.id.quoteLayout)); // If I get rid of the code which set the score in this activity, I should move this line down in the if statement
+            TextView mQuoteView = (TextView) frag.getView().findViewById(R.id.quoteView);
+
             if (v == mNextQuoteButton) {
                 // do nothing, to remove, I used it in the first screen
             } if (v == mButton1 || v == mButton2 || v == mButton3 || v == mButton4) {
@@ -96,8 +100,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     } else {
                         Toast.makeText(GameActivity.this, "WRONG", Toast.LENGTH_LONG).show();
                     }
-                    Fragment frag = getFragmentManager().findFragmentById((R.id.quoteLayout));
-                    TextView mQuoteView = (TextView) frag.getView().findViewById(R.id.quoteView);
+//                    Fragment frag = getFragmentManager().findFragmentById((R.id.quoteLayout));
+//                    TextView mQuoteView = (TextView) frag.getView().findViewById(R.id.quoteView);
                     currentCharacter = getCurrentQuote().getCharacter(); // I should refactor here
                     mQuoteView.setText(getCurrentQuote().getQuote());
 //                Log.v(TAG, getCharacters().get(0));
@@ -105,6 +109,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     quoteCounter ++;
                 } else {
                     hideButtons();
+                    mQuoteView.setText("You scored " + score + "/5");
                 }
             }
         }
