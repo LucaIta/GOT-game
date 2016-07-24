@@ -13,7 +13,7 @@ public class Score {
     public Score(String score) {
         this.score = score;
         Date date = new Date();
-        String time = new SimpleDateFormat("dd/MM/yyyy, hh:hh").format(date);
+        String time = new SimpleDateFormat("dd/MM/yyyy, hh:mm").format(date);
         this.time = time;
     }
 
