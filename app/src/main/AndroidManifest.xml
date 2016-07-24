@@ -20,7 +20,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.ScoreActivity"></activity>
+        <activity android:name=".ui.ScoreActivity" />
+        <activity android:name=".ScoreListActivity"></activity>
     </application>
 
 </manifest>
