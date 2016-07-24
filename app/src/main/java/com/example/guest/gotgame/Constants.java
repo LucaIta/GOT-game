@@ -5,5 +5,5 @@ package com.example.guest.gotgame;
  */
 public final class Constants {
 
-    public static final String FIREBASE_CHILD_SCORE = "score";
+    public static final String FIREBASE_CHILD_SCORE = "scores";
 }

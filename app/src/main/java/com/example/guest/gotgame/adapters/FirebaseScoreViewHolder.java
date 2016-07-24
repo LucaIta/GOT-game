@@ -33,9 +33,9 @@ public class FirebaseScoreViewHolder extends RecyclerView.ViewHolder {  // I mig
 
         TextView scoreTextView = (TextView) mView.findViewById(R.id.scoreTextView);
 //        TextView dateTextView = (TextView) mView.findViewById(R.id.dateTextView); // textView for the date here
-        Log.v("FirebaseViewHolder", "The return for the getScore is " + score.getScore());
+//        Log.v("FirebaseViewHolder", "The return for the getScore is " + score.getScore());
 //        scoreTextView.setText(score.getScore());
-        scoreTextView.setText("If I see this it means that I'm setting the text right");
+        scoreTextView.setText("The score is: " + score.getScore());
 //        dateTextView.setText(score.getTime());
 
     }

@@ -31,7 +31,6 @@ public class ScoreListActivity extends AppCompatActivity {
     }
 
     private void setupFirebaseAdapter() {
-        /// here I'm missing the layout
         mFirebaseAdapter = new FirebaseRecyclerAdapter<Score, FirebaseScoreViewHolder>(Score.class, R.layout.score_list_item, FirebaseScoreViewHolder.class, mScoreReference) {
             @Override
             protected void populateViewHolder(FirebaseScoreViewHolder viewHolder, Score model, int position) {
