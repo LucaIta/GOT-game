@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.guest.gotgame.Constants;
 import com.example.guest.gotgame.GotQuotesService;
 import com.example.guest.gotgame.R;
+import com.example.guest.gotgame.ScoreListActivity;
 import com.example.guest.gotgame.model.Quote;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -114,7 +115,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     setButtons();
                     quoteCounter ++;
                 } else {
-                    Intent intent = new Intent(GameActivity.this, ScoreActivity.class);
+//                    Intent intent = new Intent(GameActivity.this, ScoreActivity.class); // this is the correct one
+                    Intent intent = new Intent(GameActivity.this, ScoreListActivity.class);
                     intent.putExtra("score", Integer.toString(score)); // here I need to put as an extra, a score object....
                     startActivity(intent);
 //                    hideButtons();

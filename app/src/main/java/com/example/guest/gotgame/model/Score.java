@@ -17,6 +17,11 @@ public class Score {
         this.time = time;
     }
 
+
+    public Score() {
+        // required constructor with no arguments
+    }
+
     public String getScore() {
         return score;
     }
