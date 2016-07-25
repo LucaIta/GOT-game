@@ -9,6 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Here I can try to display the Quote"
-        android:id="@+id/quoteView" />
+        android:id="@+id/quoteView"
+        android:layout_gravity="center_horizontal|top"
+        android:textSize="@android:dimen/app_icon_size" />
 
 </FrameLayout>

@@ -30,7 +30,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
-    @Bind(R.id.nextQuoteButton) Button mNextQuoteButton;
+//    @Bind(R.id.nextQuoteButton) Button mNextQuoteButton;
     @Bind(R.id.button1) Button mButton1;
     @Bind(R.id.button2) Button mButton2;
     @Bind(R.id.button3) Button mButton3;
@@ -49,10 +49,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-//        quoteFragment.setQuote();
         loadFragment(quoteFragment, "quote fragment");
         ButterKnife.bind(this);
-        mNextQuoteButton.setOnClickListener(this);
+//        mNextQuoteButton.setOnClickListener(this);
         mButton1.setOnClickListener(this);
         mButton2.setOnClickListener(this);
         mButton3.setOnClickListener(this);
@@ -63,11 +62,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         Log.v(TAG, "the size of the character array in the game activity is: " + mCharacters.size());
         Log.v(TAG, "the size of the quote array in the game activity is: " + mQuotes.size());
 
+//        setButtons();
 
-
-//        Fragment frag = getFragmentManager().findFragmentById((R.id.quoteLayout)); // here It doesn't work though it works in the button
-//        TextView mQuoteView = (TextView) frag.getView().findViewById(R.id.quoteView);
-//        mQuoteView.setText("If I see this it means that it works");
     }
 
 //    Fragment frag = getFragmentManager().findFragmentById(R.id.yourFragment);
@@ -88,9 +84,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             } else {
                 ft.replace(R.id.quoteLayout, frag, tag); // here if there already is a fragment, I just replace it
             }
-//          Fragment frag2 = getFragmentManager().findFragmentById((R.id.quoteLayout)); // here It doesn't work though it works in the button
-//            TextView mQuoteView = (TextView) frag2.getView().findViewById(R.id.quoteView);// the one which is null is the fragment that I retrieve
-//            mQuoteView.setText("If I see this it means that it works");
+
             ft.addToBackStack(null); // dunno
             ft.commit(); // here I suppose I’m just committing
         }
@@ -100,17 +94,18 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             Fragment frag = getFragmentManager().findFragmentById((R.id.quoteLayout)); // If I get rid of the code which set the score in this activity, I should move this line down in the if statement
             TextView mQuoteView = (TextView) frag.getView().findViewById(R.id.quoteView);
 
-            if (v == mNextQuoteButton) {
+//            if (v == mNextQuoteButton) {
                 // do nothing, to remove, I used it in the first screen
-            } if (v == mButton1 || v == mButton2 || v == mButton3 || v == mButton4) {
+//            }
+            if (v == mButton1 || v == mButton2 || v == mButton3 || v == mButton4) {
                 if (!(quoteCounter == 5)) {
                     Button pressedButton = (Button) v;
                     String character = pressedButton.getText().toString();
                     if (character == currentCharacter) { // here I check wheter the correct button has been clicked
-                        Toast.makeText(GameActivity.this, "CORRECT", Toast.LENGTH_LONG).show();
+                        Toast.makeText(GameActivity.this, "CORRECT", Toast.LENGTH_SHORT).show();
                         score ++;
                     } else {
-                        Toast.makeText(GameActivity.this, "WRONG", Toast.LENGTH_LONG).show();
+                        Toast.makeText(GameActivity.this, "WRONG", Toast.LENGTH_SHORT).show();
                     }
 //                    Fragment frag = getFragmentManager().findFragmentById((R.id.quoteLayout));
 //                    TextView mQuoteView = (TextView) frag.getView().findViewById(R.id.quoteView);
