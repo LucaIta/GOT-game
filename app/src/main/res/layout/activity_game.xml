@@ -7,11 +7,12 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.guest.gotgame.ui.GameActivity">
+    tools:context="com.example.guest.gotgame.ui.GameActivity"
+    android:background="@color/colorPrimary">
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:id="@+id/quoteLayout"
@@ -22,24 +23,30 @@
         android:layout_height="wrap_content"
         android:text="Button1"
         android:id="@+id/button1"
+        android:background="@color/colorAccent"
+        android:layout_marginBottom="24dp"
         android:layout_above="@+id/button2"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Button2"
         android:id="@+id/button2"
+        android:background="@color/colorAccent"
         android:layout_above="@+id/button3"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="24dp" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Button3"
         android:id="@+id/button3"
+        android:background="@color/colorAccent"
+        android:layout_marginBottom="24dp"
         android:layout_above="@+id/button4"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -49,8 +56,9 @@
         android:layout_height="wrap_content"
         android:text="Button4"
         android:id="@+id/button4"
+        android:background="@color/colorAccent"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

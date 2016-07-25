@@ -7,16 +7,19 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.guest.gotgame.MainActivity">
+    tools:context="com.example.guest.gotgame.MainActivity"
+    android:background="@color/colorPrimary">
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Play"
         android:id="@+id/playButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="33dp" />
+        android:layout_marginBottom="33dp"
+        android:background="@color/colorAccent"
+        android:allowUndo="false" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -26,6 +29,7 @@
         android:drawablePadding="4dp"
         android:id="@+id/gitHubLinkView"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/white" />
 
 </RelativeLayout>

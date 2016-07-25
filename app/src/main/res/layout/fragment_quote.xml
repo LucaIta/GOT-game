@@ -11,6 +11,8 @@
         android:text="Here I can try to display the Quote"
         android:id="@+id/quoteView"
         android:layout_gravity="center_horizontal|top"
-        android:textSize="@android:dimen/app_icon_size" />
+        android:textSize="@android:dimen/app_icon_size"
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/primary_text_dark" />
 
 </FrameLayout>
