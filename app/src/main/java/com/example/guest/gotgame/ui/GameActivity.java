@@ -141,8 +141,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             Random rand = new Random(); // generates an Instance of Random to use it later
             for (;characters.size() < 4;) { // add 3 random characters to the array
                 int randomNum = rand.nextInt(4);
-                characters.add(mQuotes.get(randomNum).getCharacter());
-                Collections.shuffle(characters); // here I'm shuffling the array
+                if (!characters.contains(mCharacters.get(randomNum))) {
+                    characters.add(mCharacters.get(randomNum));
+                    Collections.shuffle(characters); // here I'm shuffling the array
+                }
             }
             return characters;
         }
