@@ -60,7 +60,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         mQuotes = Parcels.unwrap(getIntent().getParcelableExtra("quotes"));
         mCharacters = Parcels.unwrap(getIntent().getParcelableExtra("characters"));
-        Log.v(TAG, "the size of the character array in the main activity is" + mCharacters.size());
+        Log.v(TAG, "the size of the character array in the game activity is: " + mCharacters.size());
+        Log.v(TAG, "the size of the quote array in the game activity is: " + mQuotes.size());
+
 
 
 //        Fragment frag = getFragmentManager().findFragmentById((R.id.quoteLayout)); // here It doesn't work though it works in the button
@@ -122,10 +124,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     Intent intent = new Intent(GameActivity.this, ScoreListActivity.class);
                     intent.putExtra("score", Integer.toString(score)); // here I need to put as an extra, a score object....
                     startActivity(intent);
-//                    hideButtons();
-//                    mQuoteView.setText("You scored " + score + "/5");
-//                    mScoreReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_SCORE);
-//                    saveScore(score);
                 }
             }
         }
@@ -157,15 +155,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             mButton3.setText(characters.get(2));
             mButton4.setText(characters.get(3));
         }
-
-        public void hideButtons() {
-            mButton1.setVisibility(View.GONE);
-            mButton2.setVisibility(View.GONE);
-            mButton3.setVisibility(View.GONE);
-            mButton4.setVisibility(View.GONE);
-        }
-
-
     }
 
 

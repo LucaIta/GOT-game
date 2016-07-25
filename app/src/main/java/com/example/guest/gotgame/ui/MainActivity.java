@@ -84,8 +84,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     try {
                         String jsonData = response.body().string();
                         if (response.isSuccessful()) {
-                            Log.v(TAG, jsonData);
-                            mQuotes.add(gotQuotesService.processResults(jsonData));
+//                            Log.v(TAG, jsonData);
+                            if (!mQuotes.contains(gotQuotesService.processResults(jsonData))) {
+                                Log.v(TAG, "The added quote is: " + gotQuotesService.processResults(jsonData).getQuote());
+                                mQuotes.add(gotQuotesService.processResults(jsonData));
+                            }
                             if (mQuotes.size() == 5) { // when I have 5 quotes, get the characters
                                 getCharacters();
                             }
@@ -103,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (!(mCharacters.contains(quote.getCharacter()))) {
                 mCharacters.add(quote.getCharacter());
                 Log.v(TAG, "The added character is" + quote.getCharacter());
-                Log.v(TAG, "The size of the character array, in the for Each LOOP is" + Integer.toString(mCharacters.size()));
+                Log.v(TAG, "The size of the character array, in the for Each LOOP is: " + Integer.toString(mCharacters.size()));
             }
         }
         for (int i = 0; i < 10 ; i ++) { // this seems to be wrong, because I keep looping
@@ -118,12 +121,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     try {
                         String jsonData = response.body().string();
                         if (response.isSuccessful()) {
-                            Log.v(TAG, "I'm in the response is successful code"); // I get here, why I'm not adding?
                             Log.v(TAG, jsonData);
-                            if (!(mCharacters.contains(gotQuotesService.processResults(jsonData).getCharacter()) && mCharacters.size() < 5)) {
-                                Log.v(TAG, "I'm in the if statement for when whe character is not contained in the array"); // I get here!!!!!!
-                                mCharacters.add(gotQuotesService.processResults(jsonData).getCharacter()); // the size of the array increases to 40 !!!!
-                                Log.v(TAG, "The size of the character array, in the inner LOOP is" + mCharacters.size());
+                            if (!(mCharacters.contains(gotQuotesService.processResults(jsonData).getCharacter())) && (mCharacters.size() < 5)) {
+                                mCharacters.add(gotQuotesService.processResults(jsonData).getCharacter());
                             }
                         }
                     } catch (IOException e) {
