@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (v == mPlayButton) {
             Intent intent = new Intent(MainActivity.this, GameActivity.class);
             intent.putExtra("quotes", Parcels.wrap(mQuotes));
+            intent.putExtra("characters", Parcels.wrap(mCharacters));
             startActivity(intent);
         } if (v == mGitHubLinkView) {
             Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/LucaIta/GOT-game"));
@@ -85,6 +86,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         if (response.isSuccessful()) {
                             Log.v(TAG, jsonData);
                             mQuotes.add(gotQuotesService.processResults(jsonData));
+                            if (mQuotes.size() == 5) { // when I have 5 quotes, get the characters
+                                getCharacters();
+                            }
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -95,14 +99,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void getCharacters() {
-//        for (Quote quote : mQuotes) {
-//            if (!(mCharacters.contains(quote.getCharacter()))) {
-//                mCharacters.add(quote.getCharacter());
-//                Log.v(TAG, "The size of the character array, in the for Each LOOP is" + Integer.toString(mCharacters.size()));
-//            }
-//        }
-        for (;mCharacters.size() < 4;) { // this seems to be wrong, because I keep looping
-            Log.v(TAG, "new iteration it the for LOOP the size of the array is" + mCharacters.size());
+        for (Quote quote : mQuotes) {
+            if (!(mCharacters.contains(quote.getCharacter()))) {
+                mCharacters.add(quote.getCharacter());
+                Log.v(TAG, "The added character is" + quote.getCharacter());
+                Log.v(TAG, "The size of the character array, in the for Each LOOP is" + Integer.toString(mCharacters.size()));
+            }
+        }
+        for (int i = 0; i < 10 ; i ++) { // this seems to be wrong, because I keep looping
             gotQuotesService.retrieveQuotes(new Callback() { // this is the callback which I pass to the service
                 @Override
                 public void onFailure(Call call, IOException e) {
@@ -116,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         if (response.isSuccessful()) {
                             Log.v(TAG, "I'm in the response is successful code"); // I get here, why I'm not adding?
                             Log.v(TAG, jsonData);
-                            if (!(mCharacters.contains(gotQuotesService.processResults(jsonData).getCharacter()))) {
+                            if (!(mCharacters.contains(gotQuotesService.processResults(jsonData).getCharacter()) && mCharacters.size() < 5)) {
                                 Log.v(TAG, "I'm in the if statement for when whe character is not contained in the array"); // I get here!!!!!!
                                 mCharacters.add(gotQuotesService.processResults(jsonData).getCharacter()); // the size of the array increases to 40 !!!!
                                 Log.v(TAG, "The size of the character array, in the inner LOOP is" + mCharacters.size());
@@ -128,8 +132,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             });
         }
-        Log.v(TAG, "The size of the character array is" + Integer.toString(mCharacters.size()));
-        Log.v(TAG, "The third element in the character array is" + mCharacters.get(3));
     }
 
 //    Arrays.asList(yourArray).contains(yourValue)

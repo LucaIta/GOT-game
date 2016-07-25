@@ -27,7 +27,6 @@ public class ScoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_score);
         Intent intent = getIntent();
         String score = intent.getStringExtra("score");
-        Log.v("TAG", "the score retrieved from the intent is" + score);
 //        getCurrentTime();
         Score newScore = new Score(score);
         saveScore(newScore);

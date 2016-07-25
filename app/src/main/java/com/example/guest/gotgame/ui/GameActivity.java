@@ -38,7 +38,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     public static final String TAG = GameActivity.class.getSimpleName();
     public ArrayList<Quote> mQuotes = new ArrayList<>();
-    private DatabaseReference mScoreReference;
+    public ArrayList<String> mCharacters = new ArrayList<>();
     QuoteFragment quoteFragment = new QuoteFragment();
     String currentCharacter = "";
     int quoteCounter = 0;
@@ -59,7 +59,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mButton4.setOnClickListener(this);
 
         mQuotes = Parcels.unwrap(getIntent().getParcelableExtra("quotes"));
-        Log.v(TAG, "The size of the array of quotes is " + Integer.toString(mQuotes.size()));
+        mCharacters = Parcels.unwrap(getIntent().getParcelableExtra("characters"));
+        Log.v(TAG, "the size of the character array in the main activity is" + mCharacters.size());
+
+
 //        Fragment frag = getFragmentManager().findFragmentById((R.id.quoteLayout)); // here It doesn't work though it works in the button
 //        TextView mQuoteView = (TextView) frag.getView().findViewById(R.id.quoteView);
 //        mQuoteView.setText("If I see this it means that it works");
