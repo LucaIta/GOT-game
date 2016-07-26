@@ -7,7 +7,8 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingTop="16dp"
-    tools:context="ScoreListActivity">
+    tools:context="ScoreListActivity"
+    android:background="@color/colorPrimary">
 
     <!--I should not need the ListView-->
     <!--am I targeting it correctly?-->
