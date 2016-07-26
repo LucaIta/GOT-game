@@ -35,11 +35,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.button2) Button mButton2;
     @Bind(R.id.button3) Button mButton3;
     @Bind(R.id.button4) Button mButton4;
+    @Bind(R.id.quoteTextView) TextView mQuoteView;
 
     public static final String TAG = GameActivity.class.getSimpleName();
     public ArrayList<Quote> mQuotes = new ArrayList<>();
     public ArrayList<String> mCharacters = new ArrayList<>();
-    QuoteFragment quoteFragment = new QuoteFragment();
+//    QuoteFragment quoteFragment = new QuoteFragment();
     String currentCharacter = "";
     int quoteCounter = 0;
     int score = 0;
@@ -49,7 +50,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        loadFragment(quoteFragment, "quote fragment");
+//        loadFragment(quoteFragment, "quote fragment");
         ButterKnife.bind(this);
 //        mNextQuoteButton.setOnClickListener(this);
         mButton1.setOnClickListener(this);
@@ -71,29 +72,29 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     // here starts the method which should allow me to load a fragment:
 
-        public void loadFragment(Fragment frag, String tag) {  // I will pass it a fragment when I use it
-            // Interaction with fragments is done through FragmentManager, which can be obtained via Activity.getFragmentManager() and Fragment.getFragmentManager().
-            // The FragmentManager class and the FragmentTransaction class allow you to add, remove and replace fragments in the layout of your activity at runtime.
-            FragmentManager fm = getFragmentManager();
-            FragmentTransaction ft = fm.beginTransaction();
-            Fragment fragment = getFragmentManager().findFragmentById((R.id.quoteLayout)); // here I retrieve the current load fragment to check if one has already been loaded
-
-
-            if (fragment == null) {
-                ft.add(R.id.quoteLayout, frag, tag); // I load the fragment which I passed to the method -- the syntax here goes: (container where I want to add a fragment, fragment to add, tag passed to the method)
-            } else {
-                ft.replace(R.id.quoteLayout, frag, tag); // here if there already is a fragment, I just replace it
-            }
-
-            ft.addToBackStack(null); // dunno
-            ft.commit(); // here I suppose I’m just committing
-        }
+//
+//        public void loadFragment(Fragment frag, String tag) {  // I will pass it a fragment when I use it
+//            // Interaction with fragments is done through FragmentManager, which can be obtained via Activity.getFragmentManager() and Fragment.getFragmentManager().
+//            // The FragmentManager class and the FragmentTransaction class allow you to add, remove and replace fragments in the layout of your activity at runtime.
+//            FragmentManager fm = getFragmentManager();
+//            FragmentTransaction ft = fm.beginTransaction();
+//            Fragment fragment = getFragmentManager().findFragmentById((R.id.quoteLayout)); // here I retrieve the current load fragment to check if one has already been loaded
+//
+//
+//            if (fragment == null) {
+//                ft.add(R.id.quoteLayout, frag, tag); // I load the fragment which I passed to the method -- the syntax here goes: (container where I want to add a fragment, fragment to add, tag passed to the method)
+//            } else {
+//                ft.replace(R.id.quoteLayout, frag, tag); // here if there already is a fragment, I just replace it
+//            }
+//
+//            ft.addToBackStack(null); // dunno
+//            ft.commit(); // here I suppose I’m just committing
+//        }
 
         public void onClick(View v) {
 
-            Fragment frag = getFragmentManager().findFragmentById((R.id.quoteLayout)); // If I get rid of the code which set the score in this activity, I should move this line down in the if statement
-            TextView mQuoteView = (TextView) frag.getView().findViewById(R.id.quoteView);
-
+//            Fragment frag = getFragmentManager().findFragmentById((R.id.quoteLayout)); // If I get rid of the code which set the score in this activity, I should move this line down in the if statement
+//            TextView mQuoteView = (TextView) frag.getView().findViewById(R.id.quoteView);
 //            if (v == mNextQuoteButton) {
                 // do nothing, to remove, I used it in the first screen
 //            }
