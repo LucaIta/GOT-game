@@ -17,6 +17,7 @@ import com.example.guest.gotgame.GotQuotesService;
 import com.example.guest.gotgame.R;
 import com.example.guest.gotgame.ScoreListActivity;
 import com.example.guest.gotgame.model.Quote;
+import com.example.guest.gotgame.model.Score;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -38,6 +39,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.quoteTextView) TextView mQuoteView;
 
     public static final String TAG = GameActivity.class.getSimpleName();
+    private DatabaseReference mScoreReference;
+
     public ArrayList<Quote> mQuotes = new ArrayList<>();
     public ArrayList<String> mCharacters = new ArrayList<>();
 //    QuoteFragment quoteFragment = new QuoteFragment();
@@ -116,8 +119,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     quoteCounter ++;
                 } else {
 //                    Intent intent = new Intent(GameActivity.this, ScoreActivity.class); // this is the correct one
+                    Score newScore = new Score(Integer.toString(score));
+                    mScoreReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_SCORE);
+                    mScoreReference.push().setValue(newScore);
                     Intent intent = new Intent(GameActivity.this, ScoreListActivity.class);
-                    intent.putExtra("score", Integer.toString(score)); // here I need to put as an extra, a score object....
+//                    intent.putExtra("score", Integer.toString(score)); // here I need to put as an extra, a score object....
                     startActivity(intent);
                 }
             }

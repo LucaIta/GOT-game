@@ -32,13 +32,6 @@ public class ScoreActivity extends AppCompatActivity {
         saveScore(newScore);
     }
 
-//    public String getCurrentTime() {
-//        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-//        Date now = new Date();
-//        String strDate = sdfDate.format(now);
-//        return strDate;
-//    }
-//
     public void saveScore(Score newScore) {
         mScoreReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_SCORE);
         mScoreReference.push().setValue(newScore);
