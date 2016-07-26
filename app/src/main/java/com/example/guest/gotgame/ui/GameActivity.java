@@ -41,7 +41,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public ArrayList<Quote> mQuotes = new ArrayList<>();
     public ArrayList<String> mCharacters = new ArrayList<>();
 //    QuoteFragment quoteFragment = new QuoteFragment();
-    String currentCharacter = "";
+    public String currentCharacter = "";
     int quoteCounter = 0;
     int score = 0;
 
@@ -60,11 +60,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         mQuotes = Parcels.unwrap(getIntent().getParcelableExtra("quotes"));
         mCharacters = Parcels.unwrap(getIntent().getParcelableExtra("characters"));
-        Log.v(TAG, "the size of the character array in the game activity is: " + mCharacters.size());
-        Log.v(TAG, "the size of the quote array in the game activity is: " + mQuotes.size());
-
+        mQuoteView.setText(getCurrentQuote().getQuote());
+        currentCharacter = getCurrentQuote().getCharacter();
+        setButtons();
+        quoteCounter ++;
 //        setButtons();
-
     }
 
 //    Fragment frag = getFragmentManager().findFragmentById(R.id.yourFragment);
@@ -112,7 +112,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 //                    TextView mQuoteView = (TextView) frag.getView().findViewById(R.id.quoteView);
                     currentCharacter = getCurrentQuote().getCharacter(); // I should refactor here
                     mQuoteView.setText(getCurrentQuote().getQuote());
-//                Log.v(TAG, getCharacters().get(0));
                     setButtons();
                     quoteCounter ++;
                 } else {
