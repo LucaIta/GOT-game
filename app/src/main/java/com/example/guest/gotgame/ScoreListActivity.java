@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.example.guest.gotgame.adapters.FirebaseScoreViewHolder;
 import com.example.guest.gotgame.model.Score;
@@ -23,10 +25,11 @@ import butterknife.ButterKnife;
 public class ScoreListActivity extends AppCompatActivity {
     private DatabaseReference mScoreReference;
     private FirebaseRecyclerAdapter mFirebaseAdapter;
-    public ArrayList<Score> scores = new ArrayList();
+    public ArrayList<String> mScoreList = new ArrayList();
     private ValueEventListener mScoreReferenceEventListener;
 
-    @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
+//    @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
+    @Bind(R.id.listView) ListView mListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +38,30 @@ public class ScoreListActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         mScoreReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_SCORE);
+        mScoreReferenceEventListener = mScoreReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mScoreList = new ArrayList<>();
+                for (DataSnapshot scoreSnapshot : dataSnapshot.getChildren()) {
+                    Score score = scoreSnapshot.getValue(Score.class);
+                    String mScore = score.getScore();
+                    String mTime = score.getTime();
+                    String listElement = "Score: " + mScore + " -- Date: " + mTime;
+//                    String listElement = scoreSnapshot.getValue().toString();
+                    mScoreList.add(listElement); // is it correct? // should I create an array of Strings?
+                    ArrayAdapter adapter = new ArrayAdapter(ScoreListActivity.this, android.R.layout.simple_list_item_1, mScoreList);
+                    mListView.setAdapter(adapter);
+                }
 
-        setupFirebaseAdapter();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+//        setupFirebaseAdapter();
 
 //        mScoreReferenceEventListener = mScoreReference.addValueEventListener(new ValueEventListener() {
         // with this code I iterate through the loop correctly, as many times as the number of objects I have, so the refence is correct...
@@ -60,24 +85,24 @@ public class ScoreListActivity extends AppCompatActivity {
     }
 
 
-    private void setupFirebaseAdapter() {
-        mFirebaseAdapter = new FirebaseRecyclerAdapter<Score, FirebaseScoreViewHolder>(Score.class, R.layout.score_list_item, FirebaseScoreViewHolder.class, mScoreReference) {
-            @Override
-            protected void populateViewHolder(FirebaseScoreViewHolder viewHolder, Score model, int position) {
-                viewHolder.bindScore(model); // here I bind the score to the viewHolder
-
-            }
-        };
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(mFirebaseAdapter); // here we are using the FirebaseAdapter
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mFirebaseAdapter.cleanup();
-    }
+//    private void setupFirebaseAdapter() {
+//        mFirebaseAdapter = new FirebaseRecyclerAdapter<Score, FirebaseScoreViewHolder>(Score.class, R.layout.score_list_item, FirebaseScoreViewHolder.class, mScoreReference) {
+//            @Override
+//            protected void populateViewHolder(FirebaseScoreViewHolder viewHolder, Score model, int position) {
+//                viewHolder.bindScore(model); // here I bind the score to the viewHolder
+//
+//            }
+//        };
+//        mRecyclerView.setHasFixedSize(true);
+//        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        mRecyclerView.setAdapter(mFirebaseAdapter); // here we are using the FirebaseAdapter
+//    }
+//
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        mFirebaseAdapter.cleanup();
+//    }
 
 
 }
