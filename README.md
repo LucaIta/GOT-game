@@ -17,9 +17,7 @@ In case of bugs you can contact lucaqq@gmail.com
 
 ## Technologies Used
 
-This app uses Firebase and a GOT quotes API.
-* API:
-* Game of Thrones Quotes
+This app uses Firebase and the Game of Thrones Quotes API.
 * https://github.com/wsizoo/game-of-thrones-quotes
 
 ### License
